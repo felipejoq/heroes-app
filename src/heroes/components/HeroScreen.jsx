@@ -5,8 +5,7 @@ export const HeroScreen = ({id, superhero, publisher, alter_ego, first_appearanc
   const navigate = useNavigate();
 
   const onNavigateBack = () => {
-    const publisher = id.split("-")[0];
-    navigate(`/${publisher}`)
+    navigate(-1)
   }
 
   return (

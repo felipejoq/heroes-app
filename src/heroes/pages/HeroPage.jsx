@@ -1,7 +1,7 @@
 import {Navigate, useParams} from "react-router-dom";
 import {getHeroById} from "../helpers";
 import {useMemo} from "react";
-import {HeroScreen} from "../components/index.js";
+import {HeroScreen} from "../components";
 
 export const HeroPage = () => {
 
