@@ -5,12 +5,13 @@ import {HeroCard} from "../components";
 
 export const SearchPage = () => {
 
-  let [searchParams, setSearchParams] = useSearchParams();
-
-  const {searchText, onInputChange} = useForm({searchText: ''});
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const q = searchParams.get('q') || '';
   const heroesFind = getHeroesByName(q);
+
+  const {searchText, onInputChange} = useForm({searchText: q});
+
 
   const onSearchSubmit = (event) => {
     event.preventDefault();
@@ -44,8 +45,12 @@ export const SearchPage = () => {
         <div className="col-7">
           <h4>Resultados</h4>
           <hr/>
-          <div className="alert alert-info">Buscar un héroe...</div>
-          <div className="alert alert-warning">No hay resultados <strong>{q}</strong>...</div>
+          {
+            (q === '')
+              ? <div className="alert alert-info">Buscar un héroe...</div>
+              : (heroesFind.length === 0)
+              && <div className="alert alert-warning">No hay resultados <strong>{q}</strong>...</div>
+          }
           {
             heroesFind.map(hero => (
               <div key={hero.id} className="mt-2">
