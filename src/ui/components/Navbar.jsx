@@ -1,10 +1,15 @@
 import {Link, NavLink, useNavigate} from 'react-router-dom';
+import {useContext} from "react";
+import {AuthContext} from "../../auth/index.js";
 
 export const Navbar = () => {
+
+  const {user, logout} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    logout()
     navigate('/login', {
       replace: true // Evita volver al historial anterior
     })
@@ -49,8 +54,11 @@ export const Navbar = () => {
 
         <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
           <ul className="navbar-nav ml-auto">
+            <div className="nav-item nav-link">
+              {user?.name}
+            </div>
             <button
-              className="nav-item nav-link btn"
+              className="nav-item nav-link btn btn-secondary"
               onClick={handleLogout}
             >
               Logout
