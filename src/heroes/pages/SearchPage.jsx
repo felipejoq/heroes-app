@@ -2,6 +2,7 @@ import {useForm} from "../../hooks/useForm.js";
 import {useSearchParams} from "react-router-dom";
 import {getHeroesByName} from "../helpers";
 import {HeroCard} from "../components";
+import {Alert} from "../../ui";
 
 export const SearchPage = () => {
 
@@ -12,10 +13,9 @@ export const SearchPage = () => {
 
   const {searchText, onInputChange} = useForm({searchText: q});
 
-
   const onSearchSubmit = (event) => {
     event.preventDefault();
-    if (searchText.trim().length <= 1) return;
+    // if (searchText.trim().length <= 1) return;
     setSearchParams({q: searchText});
   }
 
@@ -47,9 +47,9 @@ export const SearchPage = () => {
           <hr/>
           {
             (q === '')
-              ? <div className="alert alert-info">Buscar un héroe...</div>
+              ? <Alert type="info" message="Buscar un héroe..."/>
               : (heroesFind.length === 0)
-              && <div className="alert alert-warning">No hay resultados <strong>{q}</strong>...</div>
+              && <Alert type="warning" message={`No hay resultados para "${q}"...`}/>
           }
           {
             heroesFind.map(hero => (
